@@ -8,7 +8,7 @@ import { useState } from "react";
  * @param {function} props.onQuantityUpdate - Функция коллбек для передачи данных родителю.
  * @returns {JSX.Element} Элемент JSX.
  */
-export const Stepper = ({ minValue = 1, maxValue = 9, onQuantityUpdate }) => {
+export const Stepper = ({ minValue = 1, maxValue = 9, step = 1, onQuantityUpdate }) => {
   // Стейт для увеличения/уменьшения значения в компоненте.
   const [value, setValue] = useState(minValue);
 
@@ -16,10 +16,10 @@ export const Stepper = ({ minValue = 1, maxValue = 9, onQuantityUpdate }) => {
    * Обработчик увеличения значения
    */
   const handleBtnIncrement = () => {
-    if (value < maxValue) {
-      setValue(value + 1);
+    if (value + step <= maxValue) {
+      setValue(value + step);
 
-      onQuantityUpdate && onQuantityUpdate(value + 1);
+      onQuantityUpdate && onQuantityUpdate(value + step);
     }
   };
 
@@ -27,10 +27,10 @@ export const Stepper = ({ minValue = 1, maxValue = 9, onQuantityUpdate }) => {
    * Обработчик уменьшения значения
    */
   const handleBtnDecrement = () => {
-    if (value > minValue) {
-      setValue(value - 1);
+    if (value - step >= minValue) {
+      setValue(value - step);
 
-      onQuantityUpdate && onQuantityUpdate(value - 1);
+      onQuantityUpdate && onQuantityUpdate(value - step);
     }
   };
 
