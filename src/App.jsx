@@ -1,75 +1,12 @@
-import "./App.css";
-import { Card } from "./components/ui/Card/Card";
-import { initialProducts } from "../data";
-import { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./components/routes/AppRoutes.jsx";
 
-function App() {
-  // Стейт для продуктов (начальное значение из data.js)
-  const [products, setProducts] = useState(initialProducts);
-
-  // Обработчик клика по карточке (для открытия сайдбара, например)
-  const handleCardBtnClick = (id) => {
-    console.log(`Нажата карточка с ID ${id}`);
-  };
-
-  /**
-   * Обработка изменений в Stepper
-   * @param {string} id - id товара
-   * @param {string} newValue - Новое значение из Stepper
-   */
-  const handleStepperUpdate = (id, newValue) => {
-    const updatedProducts = initialProducts?.map((product) => {
-      if (product?.id === id) {
-        return { ...product, cartQuantity: newValue };
-      }
-
-      return product;
-    });
-
-    // Обновляем стейт
-    setProducts(updatedProducts);
-  };
-
-  /**
-   * Обработка добавления товара в избранное
-   * @param {string} id - id товара
-   */
-  const handleToggleFavorite = (id) => {
-    // Создании поверхностной копии массива
-    const currentProducts = [...products];
-
-    // Находим товара по id
-    const product = currentProducts?.find((product) => product?.id === id);
-
-    if (product) {
-      // Обновляем значение isFavorite у найденного товара
-      product.isFavorite = !product?.isFavorite;
-
-      // Обновляем стейт
-      setProducts(currentProducts);
-
-      // Получаем список избранных товаров
-      const favoriteProducts = currentProducts
-        ?.filter((product) => product?.isFavorite)
-        ?.map((product) => product?.id);
-
-      // Записываем избранные товары в localStorage
-      localStorage.setItem("favorite", JSON.stringify(favoriteProducts));
-    }
-
-    console.log("сохраненки", products);
-  };
-
+const App = () => {
   return (
-    <section className="products py-10 bg-gray-100">
-      <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {!!initialProducts &&
-          initialProducts.map((product) => (
-            <Card key={product?.id} details={product} onBtnClick={handleCardBtnClick} onStepperUpdate={handleStepperUpdate} onToggleFavorite={handleToggleFavorite} />
-          ))}
-      </div>
-    </section>
+    <Router>
+      <AppRoutes />
+    </Router>
   );
-}
+};
 
 export default App;

@@ -5,6 +5,7 @@ import { useState } from "react";
  * @param {object} props - Свойства компонента.
  * @param {string} [props.minValue = 1] - Минимальное значение.
  * @param {string} [props.maxValue = 10] - Максимальное значение.
+ * @param {number} [props.step = 1] - Шаг изменения значения.
  * @param {function} props.onQuantityUpdate - Функция коллбек для передачи данных родителю.
  * @returns {JSX.Element} Элемент JSX.
  */

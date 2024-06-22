@@ -1,17 +1,17 @@
-import Stepper from "../Stepper/Stepper";
+// import Stepper from "../Stepper/Stepper";
 /**
- * Компонент карточка
- * @param {object} props - Свойства компонента
- * @param {object} props.details - Детали карточки
- * @param {string} props.details.id - Идентификатор карточки
- * @param {string} props.details.title - Название карточки
- * @param {string} props.details.category - Категория карточки (необязательно)
- * @param {string} props.details.description - Описание карточки (необязательно)
- * @param {string} [props.details.price] - Цена карточки (необязательно)
- * @param {number} [props.details.rating] - Рейтинг карточки (необязательно)
- * @param {string} props.details.imgSrc - Путь к изображению
- * @param {function} props.onClick - Обработчик клика по карточке (необязательно)
- * @returns {JSX.Element} Элемент JSX
+ * Компонент карточка.
+ * @param {object} props - Свойства компонента.
+ * @param {object} props.details - Детали карточки.
+ * @param {string} props.details.id - Идентификатор карточки.
+ * @param {string} props.details.title - Название карточки.
+ * @param {string} props.details.category - Категория карточки (необязательно).
+ * @param {string} props.details.description - Описание карточки (необязательно).
+ * @param {string} [props.details.price] - Цена карточки (необязательно).
+ * @param {number} [props.details.rating] - Рейтинг карточки (необязательно).
+ * @param {string} props.details.imgSrc - Путь к изображению.
+ * @param {function} props.onClick - Обработчик клика по карточке (необязательно).
+ * @returns {JSX.Element} Элемент JSX.
  */
 export const Card = (props) => {
   const {
@@ -24,22 +24,26 @@ export const Card = (props) => {
     imgSrc,
     isFavorite,
   } = props.details;
-  const { onBtnClick, onStepperUpdate, onToggleFavorite } = props;
 
-  //обработчик клика по карточке для передачи id в компонент родитель
-  const handleBtnClick = () => onBtnClick(id);
+  const { onCardClick, onToggleFavorite } = props;
+
+  // Обработчик клика по карточке для передачи id в компонент родитель
+  const handleCardClick = () => onCardClick(id);
 
   // Обработчик клика на иконку сердечка
-  const handleFavorite = () => onToggleFavorite(id);
-
-  // Обработчик обновления значения в Stepper
-  const handleQuantityUpdate = (value) => {
-    // value будет получен в момент изменения значения в компоненте Stepper
-    onStepperUpdate(id, value);
+  const handleFavorite = (event) => {
+    event.stopPropagation(); // Предотвр. всплытие события
+    onToggleFavorite(id);
   };
 
+  // Обработчик обновления значения в Stepper
+  // const handleQuantityUpdate = (value) => {
+  //   // value будет получен в момент изменения значения в компоненте Stepper
+  //   onStepperUpdate(id, value);
+  // };
+
   return (
-    <article className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+    <article onClick={handleCardClick} className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
       <a href="#">
         <div className="relative flex items-end overflow-hidden rounded-xl">
           <img className="w-full max-h-44 pt-8" src={imgSrc} alt={title} />
@@ -78,11 +82,11 @@ export const Card = (props) => {
                 "☆".repeat(5 - Math.floor(rating))}
             </div>
           )}
-          <Stepper
+          {/* <Stepper
             onQuantityUpdate={handleQuantityUpdate}
             minValue={1}
             maxValue={9}
-          />
+          /> */}
           <div className="mt-3 flex items-end justify-between">
             <p className="text-lg font-bold text-blue-500">{price}</p>
             <div className="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
@@ -101,9 +105,9 @@ export const Card = (props) => {
                 />
               </svg>
 
-              <button onClick={handleBtnClick} className="text-sm">
+              {/* <button onClick={handleBtnClick} className="text-sm">
                 В корзину
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
