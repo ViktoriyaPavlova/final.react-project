@@ -27,8 +27,8 @@ export const Card = (props) => {
 
   const { onCardClick, onToggleFavorite } = props;
 
-  // Обработчик клика по карточке для передачи id в компонент родитель
-  const handleCardClick = () => onCardClick(id);
+  // // Обработчик клика по карточке для передачи id в компонент родитель
+  // const handleCardClick = () => onCardClick(id);
 
   // Обработчик клика на иконку сердечка
   const handleFavorite = (event) => {
@@ -43,7 +43,7 @@ export const Card = (props) => {
   // };
 
   return (
-    <article onClick={handleCardClick} className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+    <article onClick={() => onCardClick(id)} className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
       <a href="#">
         <div className="relative flex items-end overflow-hidden rounded-xl">
           <img className="w-full max-h-44 pt-8" src={imgSrc} alt={title} />
