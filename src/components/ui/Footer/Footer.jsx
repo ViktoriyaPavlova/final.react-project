@@ -162,14 +162,14 @@ const Footer = () => {
             </div>
   
             <div className="lg:mx-auto text-center sm:text-left">
-              <h4 className="text-lg text-gray-900 font-medium mb-7">Pagedone</h4>
+              <h4 className="text-lg text-gray-900 font-medium mb-7">Клиентам</h4>
               <ul className="text-sm  transition-all duration-500">
                 <li className="mb-6">
                   <a
                     href="#"
                     className="text-gray-600 hover:text-gray-900"
                   >
-                    Home
+                    Доставка
                   </a>
                 </li>
                 <li className="mb-6">
@@ -177,7 +177,7 @@ const Footer = () => {
                     href="#"
                     className=" text-gray-600 hover:text-gray-900"
                   >
-                    About
+                    Оплата
                   </a>
                 </li>
                 <li className="mb-6">
@@ -185,7 +185,7 @@ const Footer = () => {
                     href="#"
                     className=" text-gray-600 hover:text-gray-900"
                   >
-                    Pricing
+                    Помощь
                   </a>
                 </li>
                 <li>
@@ -193,21 +193,21 @@ const Footer = () => {
                     href="#"
                     className=" text-gray-600 hover:text-gray-900"
                   >
-                    Features
+                    Гарантия
                   </a>
                 </li>
               </ul>
             </div>
   
             <div className="lg:mx-auto text-center sm:text-left">
-              <h4 className="text-lg text-gray-900 font-medium mb-7">Products</h4>
+              <h4 className="text-lg text-gray-900 font-medium mb-7">Мобильная оптика</h4>
               <ul className="text-sm  transition-all duration-500">
                 <li className="mb-6">
                   <a
                     href="#"
                     className="text-gray-600 hover:text-gray-900"
                   >
-                    Figma UI System
+                    О нас
                   </a>
                 </li>
                 <li className="mb-6">
@@ -215,7 +215,7 @@ const Footer = () => {
                     href="#"
                     className=" text-gray-600 hover:text-gray-900"
                   >
-                    Icons Assets
+                    Контакты
                   </a>
                 </li>
                 <li className="mb-6">
@@ -223,7 +223,7 @@ const Footer = () => {
                     href="#"
                     className=" text-gray-600 hover:text-gray-900"
                   >
-                    Responsive Blocks
+                    Отзывы
                   </a>
                 </li>
                 <li>
@@ -231,7 +231,7 @@ const Footer = () => {
                     href="#"
                     className=" text-gray-600 hover:text-gray-900"
                   >
-                    Components Library
+                    Рекомендации
                   </a>
                 </li>
               </ul>
