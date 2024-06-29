@@ -1,5 +1,5 @@
-import { Card } from "../components/ui/Card/Card.jsx";
-import useProductsStore from "../store/useProductsStore.js";
+import { Card } from "../components/ui/Card/Card";
+import useProductsStore from "../store/useProductsStore";
 import { useNavigate } from "react-router-dom";
 
 const Cards = () => {

@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
-import useProductsStore from "../store/useProductsStore.js";
+import useProductsStore from "../store/useProductsStore";
 import { Link } from "react-router-dom";
 
 const CardDetail = () => {
+  // Получение id из адресной строки через React-router-dom
   const { id } = useParams();
 
   // Стор для работы с продуктами
-  const { products, setFavorite } = useProductsStore();
+  const { getProductById, setFavorite } = useProductsStore();
 
   // Находим карточку по id.
-  const product = products?.find((product) => product?.id === id);
+  const product = getProductById(id);
 
 
   return (

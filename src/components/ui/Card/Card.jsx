@@ -1,4 +1,3 @@
-// import Stepper from "../Stepper/Stepper";
 /**
  * Компонент карточка.
  * @param {object} props - Свойства компонента.
@@ -11,6 +10,7 @@
  * @param {number} [props.details.rating] - Рейтинг карточки (необязательно).
  * @param {string} props.details.imgSrc - Путь к изображению.
  * @param {function} props.onClick - Обработчик клика по карточке (необязательно).
+ * @param {boolean} props.isFavorite - Карточка добавлена в сохраненки или нет (необязательно).
  * @returns {JSX.Element} Элемент JSX.
  */
 export const Card = (props) => {
@@ -27,13 +27,21 @@ export const Card = (props) => {
 
   const { onCardClick, onToggleFavorite } = props;
 
-  // // Обработчик клика по карточке для передачи id в компонент родитель
-  // const handleCardClick = () => onCardClick(id);
+  console.log("onCardClick", onCardClick);
 
   // Обработчик клика на иконку сердечка
   const handleFavorite = (event) => {
     event.stopPropagation(); // Предотвр. всплытие события
-    onToggleFavorite(id);
+
+    if (onToggleFavorite) {
+      onToggleFavorite(id);
+    }
+  };
+  // Обработчик клика по карточке для передачи id в компонент родитель
+  const handleCardClick = () => {
+    if (onCardClick) {
+      onCardClick(id);
+    }
   };
 
   // Обработчик обновления значения в Stepper
@@ -43,7 +51,10 @@ export const Card = (props) => {
   // };
 
   return (
-    <article onClick={() => onCardClick(id)} className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+    <article
+      onClick={handleCardClick}
+      className="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300"
+    >
       <a href="#">
         <div className="relative flex items-end overflow-hidden rounded-xl">
           <img className="w-full max-h-44 pt-8" src={imgSrc} alt={title} />
@@ -71,8 +82,7 @@ export const Card = (props) => {
         <div className="mt-1 p-2">
           <h2 className="text-slate-900 pb-1">{title}</h2>
           {category && <h3 className="text-slate-600 pb-4">{category}</h3>}
-          
-          
+
           {description && (
             <p className="mt-1 text-sm pb-2 text-slate-500">{description}</p>
           )}
@@ -82,11 +92,7 @@ export const Card = (props) => {
                 "☆".repeat(5 - Math.floor(rating))}
             </div>
           )}
-          {/* <Stepper
-            onQuantityUpdate={handleQuantityUpdate}
-            minValue={1}
-            maxValue={9}
-          /> */}
+
           <div className="mt-3 flex items-end justify-between">
             <p className="text-lg font-bold text-blue-500">{price}</p>
             <div className="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
@@ -104,10 +110,6 @@ export const Card = (props) => {
                   d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                 />
               </svg>
-
-              {/* <button onClick={handleBtnClick} className="text-sm">
-                В корзину
-              </button> */}
             </div>
           </div>
         </div>

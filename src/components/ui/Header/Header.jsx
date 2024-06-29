@@ -1,9 +1,11 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import useProductsStore from "../../../store/useProductsStore";
 
 /** Массив пунктов меню */
 const navItems = [
-  { name: "Home", path: "/" },
-  { name: "Cards", path: "/cards" },
+  { name: "О нас", path: "/" },
+  { name: "Солнцезащитные очки", path: "/cards" },
+  { name: "Оправы", path: " " },
 ];
 
 /**
@@ -12,6 +14,18 @@ const navItems = [
  */
 const Header = () => {
   const location = useLocation();
+
+  const navigate = useNavigate(); //хук для роутинга
+
+  // Достаем функцию, которая показывает сохраненки
+  const { getFavoriteProducts } = useProductsStore();
+
+  const favoriteProducts = getFavoriteProducts();
+
+  // Показ страницы с сохраненками
+  const handleOpenFavorites = () => {
+    navigate(`/favorites`);
+  };
 
   /**
    * Определяет, активна ли ссылка.
@@ -32,14 +46,9 @@ const Header = () => {
           <nav className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <NavLink to="/" className="flex-shrink-0 flex items-center">
               <img
-                className="block lg:hidden h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                alt="Workflow"
-              />
-              <img
-                className="hidden lg:block h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                alt="Workflow"
+                className="h-16 w-auto"
+                src="../assets/products/GV.png"
+                alt="Мобильная оптика 'Golden Vision'"
               />
             </NavLink>
             <div className="hidden sm:ml-8 sm:flex sm:space-x-8">
@@ -59,6 +68,28 @@ const Header = () => {
             </div>
           </nav>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <button
+              type="button"
+              onClick={handleOpenFavorites}
+              className="bg-transparent p-1 mr-4 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <svg
+                fill="currentColor"
+                width="24"
+                height="24"
+                viewBox="0 0 32 32"
+              >
+                <path d="M27.303,12a2.6616,2.6616,0,0,0-1.9079.8058l-.3932.4054-.397-.4054a2.6615,2.6615,0,0,0-3.8157,0,2.7992,2.7992,0,0,0,0,3.8964L25.0019,21l4.2089-4.2978a2.7992,2.7992,0,0,0,0-3.8964A2.6616,2.6616,0,0,0,27.303,12Z" />
+                <path d="M2,30H4V25a5.0059,5.0059,0,0,1,5-5h6a5.0059,5.0059,0,0,1,5,5v5h2V25a7.0082,7.0082,0,0,0-7-7H9a7.0082,7.0082,0,0,0-7,7Z" />
+                <path d="M12,4A5,5,0,1,1,7,9a5,5,0,0,1,5-5m0-2a7,7,0,1,0,7,7A7,7,0,0,0,12,2Z" />
+                <rect className="fill-none" width="32" height="32" />
+              </svg>
+              {!!favoriteProducts?.length && (
+                <span className="w-4 h-4 inline-flex justify-center justify-items-center bg-indigo-500 rounded-3xl absolute -top-2 -right-2 color-white">
+                  {favoriteProducts?.length}
+                </span>
+              )}
+            </button>
             <button
               type="button"
               className="bg-transparent p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
