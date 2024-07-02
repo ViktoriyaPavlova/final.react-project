@@ -1,4 +1,4 @@
-// import Image from "../Image/Image";
+import Image from "../Image/Image";
 
 /**
  * Компонент карточка.
@@ -48,8 +48,8 @@ export const Card = (props) => {
     >
       <a href="#">
         <div className="relative flex items-end overflow-hidden rounded-xl">
-          <img
-           className="w-full max-h-44 pt-8" src={imgSrc} alt={title} />
+          <Image
+           className="w-full max-h-44 pt-8" isCritical={true} src={imgSrc} alt={title} />
           {price && (
             <div className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-xs font-medium">
               SALE

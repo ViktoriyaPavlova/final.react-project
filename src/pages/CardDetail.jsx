@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import useProductsStore from "../store/useProductsStore";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-// import Image from "../components/ui/Image/Image";
+import Image from "../components/ui/Image/Image";
 
 const CardDetail = () => {
   // Получение id из адресной строки через React-router-dom
@@ -26,7 +26,7 @@ const CardDetail = () => {
           Вернуться назад
         </Link>
         <div className="max-w-md rounded shadow-lg relative">
-          <img className="w-full" src={product?.imgSrc} alt={product?.title} />
+          <Image className="w-full" src={product?.imgSrc} alt={product?.title} />
           <button
             className={`absolute top-0 left-0 m-2 p-2 rounded-full ${
               product?.isFavorite ? "text-red-500" : "text-gray-300"
