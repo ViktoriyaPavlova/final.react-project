@@ -1,3 +1,5 @@
+// import Image from "../Image/Image";
+
 /**
  * Компонент карточка.
  * @param {object} props - Свойства компонента.
@@ -25,30 +27,19 @@ export const Card = (props) => {
     isFavorite,
   } = props.details;
 
-  const { onCardClick, onToggleFavorite } = props;
-
-  console.log("onCardClick", onCardClick);
+  const { onCardClick, onHeartClick } = props;
 
   // Обработчик клика на иконку сердечка
   const handleFavorite = (event) => {
     event.stopPropagation(); // Предотвр. всплытие события
 
-    if (onToggleFavorite) {
-      onToggleFavorite(id);
-    }
-  };
-  // Обработчик клика по карточке для передачи id в компонент родитель
-  const handleCardClick = () => {
-    if (onCardClick) {
-      onCardClick(id);
-    }
+    onHeartClick && onHeartClick(id);
   };
 
-  // Обработчик обновления значения в Stepper
-  // const handleQuantityUpdate = (value) => {
-  //   // value будет получен в момент изменения значения в компоненте Stepper
-  //   onStepperUpdate(id, value);
-  // };
+  // Обработчик клика по карточке
+  const handleCardClick = () => {
+    onCardClick && onCardClick(id);
+  };
 
   return (
     <article
@@ -57,7 +48,8 @@ export const Card = (props) => {
     >
       <a href="#">
         <div className="relative flex items-end overflow-hidden rounded-xl">
-          <img className="w-full max-h-44 pt-8" src={imgSrc} alt={title} />
+          <img
+           className="w-full max-h-44 pt-8" src={imgSrc} alt={title} />
           {price && (
             <div className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-xs font-medium">
               SALE

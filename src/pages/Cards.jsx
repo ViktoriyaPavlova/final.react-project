@@ -8,7 +8,7 @@ const Cards = () => {
   // Стор для работы с продуктами
   const { products, setFavorite } = useProductsStore();
 
-  // Обработчик клика по карточке (для открытия сайдбара, например)
+  // Обработчик клика по карточке
   const handleCardClick = (id) => {
     navigate(`/cards/${id}`);
   };
@@ -18,11 +18,16 @@ const Cards = () => {
       <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {!!products &&
           products.map((product) => (
-            <Card key={product?.id} details={product} onCardClick={handleCardClick} onToggleFavorite={setFavorite} />
+            <Card
+              key={product?.id}
+              details={product}
+              onCardClick={handleCardClick}
+              onToggleFavorite={setFavorite}
+            />
           ))}
       </div>
     </section>
   );
-}
+};
 
 export default Cards;

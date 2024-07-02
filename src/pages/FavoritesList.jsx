@@ -1,36 +1,89 @@
+import { useState } from "react";
+import Alert from "../components/ui/Alert/Alert";
 import { Card } from "../components/ui/Card/Card";
 import useProductsStore from "../store/useProductsStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 
 const FavoritesList = () => {
-  // Достаем функцию для работы с сохраненками
-  const { getFavoriteProducts, setFavorite } = useProductsStore();
+  const navigate = useNavigate(); // хук для роутинга
 
-  //Вызываем эту функцию
+  // Достаем функцию для работы с сохраненками
+  const { getFavoriteProducts, onToggleFavorite, getProductById } =
+    useProductsStore();
+
+  //Вызываем функцию для показа сохраненок
   const favoritesProducts = getFavoriteProducts();
 
+  // Обработчик клика по карточке
+  const handleCardClick = (id) => {
+    navigate(`/cards/${id}`);
+  };
+
+  // Стейт для скрытия/показа и передачи сообщения в Alert
+  const [alertState, setAlertState] = useState({
+    isOpen: false,
+    message: "",
+  });
+
+  // // Обработчик закрытия компонента Alert
+  const handleCloseAlert = () => {
+    setAlertState({ ...alertState, isOpen: false });
+  };
+
+  // // Обработчик добавления товара в сохраненки и показа уведомления
+  const handleFavoriteAndShowAlert = (id) => {
+    // Достаем из стора поле isFavorite выбранного продукта
+    const { isFavorite } = getProductById(id);
+
+    onToggleFavorite(id); // вкл/выкл товара в сохраненки
+
+    setAlertState({
+      isOpen: true,
+      message: isFavorite
+        ? "Товар удален из сохраненок"
+        : "Товар добавлен в сохраненки",
+    });
+  };
+
   return (
-    <section className="products py-10 bg-gray-100">
-      <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <h3 className="flex mb-3">Сохраненные ранее товары</h3>
-        <Link
-          to="/cards"
-          className=" text-gray-600 hover:text-gray-900 mb-8 inline-flex"
-        >
-          Вернуться к товарам
-        </Link>
-        <div className="flex flex-wrap justify-between">
-          {!!favoritesProducts &&
-            favoritesProducts.map((product) => (
-              <Card
-                key={product?.id}
-                details={product}
-                onToggleFavorite={setFavorite}
-              />
-            ))}
+    <>
+      <section className="favorites min-h-72">
+        <div className="max-w-7xl mx-auto px-2">
+          <Link
+            to="/cards"
+            className=" text-indigo-500 hover:text-indigo-600 border-b-2 border-b-indigo-500 mb-8 inline-flex"
+          >
+            <IoIosArrowBack className="mr-1 w-5 h-5" />
+            Вернуться к товарам
+          </Link>
+          <h2 className="mb-4 text-4xl font-bold">
+            {favoritesProducts?.length
+              ? "Сохраненные ранее товары."
+              : "У вас нет сохраненных товаров."}
+          </h2>
+
+          <div className="flex flex-wrap gap-9">
+            {favoritesProducts?.length > 0 &&
+              favoritesProducts.map((product) => (
+                <Card
+                  key={product.id}
+                  details={product}
+                  onCardClick={handleCardClick}
+                  onHeartClick={handleFavoriteAndShowAlert}
+                />
+              ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Alert
+        title="Сохранение товара."
+        subtitle={alertState?.message}
+        variant="neutral"
+        isOpen={alertState?.isOpen}
+        onClose={handleCloseAlert}
+      />
+    </>
   );
 };
 

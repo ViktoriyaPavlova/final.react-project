@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
 import useProductsStore from "../store/useProductsStore";
 import { Link } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
+// import Image from "../components/ui/Image/Image";
 
 const CardDetail = () => {
   // Получение id из адресной строки через React-router-dom
   const { id } = useParams();
 
   // Стор для работы с продуктами
-  const { getProductById, setFavorite } = useProductsStore();
+  const { getProductById, onToggleFavorite } = useProductsStore();
 
   // Находим карточку по id.
   const product = getProductById(id);
@@ -20,6 +22,7 @@ const CardDetail = () => {
           to="/cards"
           className=" text-gray-600 hover:text-gray-900 mb-8 inline-flex"
         >
+          <IoIosArrowBack className="mr-1 w-5 h-5" />
           Вернуться назад
         </Link>
         <div className="max-w-md rounded shadow-lg relative">
@@ -28,7 +31,7 @@ const CardDetail = () => {
             className={`absolute top-0 left-0 m-2 p-2 rounded-full ${
               product?.isFavorite ? "text-red-500" : "text-gray-300"
             }`}
-            onClick={() => setFavorite(id)}
+            onClick={() => onToggleFavorite(id)}
           >
             <svg
               className="w-6 h-6 fill-current"

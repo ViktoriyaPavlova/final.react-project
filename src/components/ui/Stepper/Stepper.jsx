@@ -45,9 +45,15 @@ export const Stepper = ({ minValue = 1, maxValue = 9, step = 1, onQuantityUpdate
       >
         -
       </button>
-      <span className="inline-flex items-center w-9 h-9 px-3.5 py-2 text-gray-600 text-sm pointer-events-none">
-        {value}
-      </span>
+      <input
+        type="number"
+        value={value}
+        min={minValue}
+        max={maxValue}
+        readOnly
+        style={{ MozAppearance: "textfield" }}
+        className="w-10 h-10 text-center border-0 bg-gray-200 pointer-events-none focus:outline-none rounded-none appearance-none"
+      />
       <button
         onClick={handleBtnIncrement}
         disabled={value === 9}
