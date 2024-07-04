@@ -6,6 +6,7 @@ const navItems = [
   { name: "О нас", path: "/" },
   { name: "Солнцезащитные очки", path: "/cards" },
   { name: "Оправы", path: " " },
+  { name: "Admin", path: "/admin" },
 ];
 
 /**
