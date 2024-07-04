@@ -11,7 +11,7 @@ const useProductsStore = create((set) => {
   // Загрузка избранных продуктов из localStorage.
   const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-  async function getProducts() {
+  (async () => {
     try {
       // Выполнение запроса
       const response = await fetch("http://localhost:3000/products");
@@ -33,7 +33,7 @@ const useProductsStore = create((set) => {
     } catch (error) {
       console.error("Error fetching products");
     }
-  }
+  })();
 
   // Инициализация продуктов с учетом сохраненных состояний
   // const products = initialProducts?.map((product) => ({
@@ -46,7 +46,8 @@ const useProductsStore = create((set) => {
     @param {string} id - id продукта.
     @returns {Object|null} Возвращает найденный продукт или null.
     */
-  const getProductById = id => products?.find(product => product?.id === id) || null;
+  const getProductById = (id) =>
+    products?.find((product) => product?.id === id) || null;
 
   /**
    * Переключает состояние сохраненного продукта по id.
@@ -63,24 +64,24 @@ const useProductsStore = create((set) => {
 
     // Обновляем id сохраненок для записи в localStorage
     const updatedFavorites = updatedProducts
-      ?.filter(product => product?.isFavorite)
-      ?.map(product => product?.id);
+      ?.filter((product) => product?.isFavorite)
+      ?.map((product) => product?.id);
 
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
 
     // Обновляем состояние.
     set({ products: updatedProducts });
-  }
+  };
 
   /**
    * Получает все сохраненные продукты.
    * @returns {Array} Массив всех сохраненных продуктов.
    */
-  const getFavoriteProducts = () => products?.filter(product => product?.isFavorite);
+  const getFavoriteProducts = () =>
+    products?.filter((product) => product?.isFavorite);
 
   return {
     products,
-    getProducts,
     getProductById,
     onToggleFavorite,
     getFavoriteProducts,
@@ -88,4 +89,3 @@ const useProductsStore = create((set) => {
 });
 
 export default useProductsStore;
-
